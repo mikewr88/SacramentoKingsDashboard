@@ -8,6 +8,17 @@ import type {
 import type { TeamType, CourtZone } from "../types/teamType";
 import type { PlayerType } from "../types/playerType";
 import { safeDivide } from "./mathUtils";
+import {
+    CELL_SIZE,
+    BASKET_X,
+    THREE_POINT_ARC_DISTANCE,
+    THREE_POINT_CORNER_Y,
+    PAINT_HALF_WIDTH,
+    PAINT_LENGTH,
+    LEFT_BASELINE,
+    LATE_SHOT_CLOCK_THRESHOLD,
+    LATE_GAME_CLOCK_THRESHOLD,
+} from "./courtConstants";
 
 const CONTEST_LEVELS: ContestLevel[] = [
     "uncontested",
@@ -37,33 +48,6 @@ const COMPLEX_SHOT_TYPES: ComplexShotType[] = [
     "lob",
     "tip",
 ];
-
-const DEFAULT_CELL_SIZE = 5; // feet
-
-// Origin is midcourt (0,0). Left basket is attacked by offense; most x values negative.
-// X axis: -47 (left baseline) to +47 (right baseline)
-// Y axis: -25 (top sideline) to +25 (bottom sideline)
-const HALF_COURT = 47;
-
-// Backboard is 4ft from baseline; hoop extends 1.25ft in front of backboard
-const BASELINE_TO_BACKBOARD = 4;
-const BACKBOARD_TO_HOOP = 1.25;
-const BASKET_X = -(HALF_COURT - BASELINE_TO_BACKBOARD - BACKBOARD_TO_HOOP); // -41.75
-
-// NBA 3pt arc: 23.75ft from hoop center; corner straight segments at |y| >= 22ft
-const THREE_POINT_ARC_DISTANCE = 23.75;
-const THREE_POINT_CORNER_Y = 22;
-
-// Paint: 16ft wide (±8ft in y); 19ft deep from baseline (15ft from backboard + 4ft backboard offset)
-const PAINT_HALF_WIDTH = 8;
-const PAINT_LENGTH = BASELINE_TO_BACKBOARD + 15; // 19ft from baseline to free throw line
-const LEFT_BASELINE = -HALF_COURT; // -47
-
-// Late shot clock under 5 seconds remaining on the shot clock
-const LATE_SHOT_CLOCK_THRESHOLD = 5;
-
-// Late game clock under 2 minutes
-const LATE_GAME_CLOCK_THRESHOLD = 120;
 
 // ─── Court geometry helpers ───────────────────────────────────────────────────
 
@@ -231,7 +215,7 @@ function groupByCell(
 // Data aggregation for team court map. returns a record of cell key to court zone Stats
 export function buildTeamCourtMap(
     shots: ShotRowType[],
-    cellSize = DEFAULT_CELL_SIZE,
+    cellSize = CELL_SIZE,
 ): Record<string, CourtZone> {
     const result: Record<string, CourtZone> = {};
     for (const [key, cellShots] of groupByCell(shots, cellSize)) {
@@ -273,7 +257,7 @@ export function buildPlayerStats(
 // Data aggregation for player court maps. returns a record of player id to court map
 export function buildPlayerCourtMaps(
     shots: ShotRowType[],
-    cellSize = DEFAULT_CELL_SIZE,
+    cellSize = CELL_SIZE,
 ): Record<string, Record<string, CourtZone>> {
     // playerEntries is an array of [player id, shots[]] pairs ex: [['123', [shot1, shot2]], ['456', [shot3]]]
     const playerEntries = [...groupByPlayer(shots).entries()];
