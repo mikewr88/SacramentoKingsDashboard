@@ -14,11 +14,13 @@ type DashCardProps = {
 export function DashCard({ title, values }: DashCardProps) {
     const [primary, ...secondary] = values;
 
-    // secondary[0] drives the frequency bar (usage/occurrence rate)
-    const usageRate = Math.max(secondary[0]?.value ?? 0, 0.05);
+    // secondary[0] drives the frequency bar (occurrence/occurrence rate)
+    const occurrenceRate = Math.max(secondary[0]?.value ?? 0, 0.05);
 
     // secondary stats beyond the first are revealed on hover
     const expandableStats = secondary.slice(1);
+
+    if (!primary) return null;
 
     return (
         <div className="group relative flex w-[140px] flex-col items-center gap-1 rounded-lg border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900 hover:border-violet-500 cursor-default ">
@@ -51,7 +53,7 @@ export function DashCard({ title, values }: DashCardProps) {
                 {formatNumber(primary.value, primary.isPercentage)}
             </span>
 
-            {/* Frequency bar: full gradient clipped from the right based on usage rate */}
+            {/* Frequency bar: full gradient clipped from the right based on occurrence rate */}
             {secondary.length >= 1 && (
                 <div className="absolute bottom-0 left-0 right-0 h-1.5 overflow-hidden rounded-b-lg">
                     <div
@@ -59,7 +61,7 @@ export function DashCard({ title, values }: DashCardProps) {
                         style={{
                             background:
                                 "linear-gradient(to right, #5a2d81, #8b5cf6, #c4b5fd)",
-                            clipPath: `inset(0 ${(1 - usageRate) * 100}% 0 0)`,
+                            clipPath: `inset(0 ${(1 - occurrenceRate) * 100}% 0 0)`,
                         }}
                     />
                 </div>

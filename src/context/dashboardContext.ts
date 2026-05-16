@@ -1,21 +1,21 @@
 import { createContext, useContext } from "react";
-import type { TeamType, CourtZone } from "../types/teamType";
-import type { PlayerType } from "../types/playerType";
+import type { BasicShootingMetrics, CourtZone } from "../types/shootingTypes";
+import type { PlayerShootingMetrics } from "../types/playerShootingType";
 
 export type DashboardContextValue = {
     shotsDataLoading: boolean;
     shotsDataError: string | null;
-    teamStats: TeamType | null;
-    playerStats: Record<string, PlayerType> | null;
+    teamStats: BasicShootingMetrics | null;
+    playerStats: Record<string, PlayerShootingMetrics> | null;
     teamCourtMap: Record<string, CourtZone> | null;
     playerCourtMaps: Record<string, Record<string, CourtZone>> | null;
     selectedPlayerId: string | null;
     setSelectedPlayerId: (id: string | null) => void;
-    selectedPlayerStats: PlayerType | null;
+    selectedPlayerStats: PlayerShootingMetrics | null;
     selectedPlayerCourtMap: Record<string, CourtZone> | null;
     selectedCellKey: string | null;
     setSelectedCellKey: (key: string | null) => void;
-    activeStats: TeamType | null;
+    activeStats: BasicShootingMetrics | null;
 };
 
 export const DashboardContext = createContext<DashboardContextValue | null>(

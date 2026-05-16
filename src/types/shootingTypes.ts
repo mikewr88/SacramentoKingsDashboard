@@ -5,7 +5,7 @@ import type {
     ShotType,
 } from "./shotsTypes";
 
-export type TeamType = {
+export type BasicShootingMetrics = {
     // Overall breakdown for at a glance analytics and player comparison
     total_shots: number;
     overall_shooting_average: number;
@@ -26,7 +26,7 @@ export type TeamType = {
     dribbles_before_rates: Record<number, ShotRates>;
 };
 
-export type CourtZone = TeamType & {
+export type CourtZone = BasicShootingMetrics & {
     cell_x: number;
     cell_y: number;
 };

@@ -1,7 +1,10 @@
 import { useMemo, useState } from "react";
 import { useDashboardContext } from "../../context/dashboardContext";
 import { CourtGridCell } from "./CourtGridCell";
-import type { CourtZone, TeamType } from "../../types/teamType";
+import type {
+    CourtZone,
+    BasicShootingMetrics,
+} from "../../types/shootingTypes";
 import courtImage from "../../assets/basketballCourtBlank.JPG";
 import {
     COLS,
@@ -36,7 +39,7 @@ function buildCourtGridRows(
     activeMap: Record<string, CourtZone>,
     teamCourtMap: Record<string, CourtZone> | null,
     selectedPlayerId: string | null,
-    teamStats: TeamType | null,
+    teamStats: BasicShootingMetrics | null,
 ): GridRow[] {
     const teamOverall = teamStats?.overall_shooting_average ?? 0;
     const rows: GridRow[] = [];

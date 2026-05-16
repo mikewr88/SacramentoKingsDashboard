@@ -7,42 +7,42 @@
     "overall_blocked_rate": 0.0477540834845735,
     "two_point_rates": {
         "success_rate": 0.5611850579647918,
-        "usage_rate": 0.5989110707803993,
+        "occurrence_rate": 0.5989110707803993,
         "assisted_rate": 0.2833333333333333,
         "fouled_rate": 0.15492424242424244,
         "blocked_rate": 0.07537878787878788
     },
     "three_point_rates": {
         "success_rate": 0.3768613974799542,
-        "usage_rate": 0.4010889292196007,
+        "occurrence_rate": 0.4010889292196007,
         "assisted_rate": 0.3082579185520362,
         "fouled_rate": 0.016119909502262445,
         "blocked_rate": 0.006504524886877828
     },
     "paint_rates": {
         "success_rate": 0.5949433763497498,
-        "usage_rate": 0.49103901996370236,
+        "occurrence_rate": 0.49103901996370236,
         "assisted_rate": 0.30723030723030725,
         "fouled_rate": 0.16493416493416493,
         "blocked_rate": 0.08662508662508663
     },
     "catch_and_shoot_rates": {
         "success_rate": 0.49542722759341523,
-        "usage_rate": 0.45349364791288566,
+        "occurrence_rate": 0.45349364791288566,
         "assisted_rate": 0.41270635317658827,
         "fouled_rate": 0.060030015007503754,
         "blocked_rate": 0.026763381690845422
     },
     "late_shot_clock_rates": {
         "success_rate": 0.40963855421686746,
-        "usage_rate": 0.12046279491833031,
+        "occurrence_rate": 0.12046279491833031,
         "assisted_rate": 0.2128060263653484,
         "fouled_rate": 0.08380414312617702,
         "blocked_rate": 0.05084745762711865
     },
     "late_game_clock_rates": {
         "success_rate": 0.4562146892655367,
-        "usage_rate": 0.17196007259528132,
+        "occurrence_rate": 0.17196007259528132,
         "assisted_rate": 0.26187335092348285,
         "fouled_rate": 0.09300791556728233,
         "blocked_rate": 0.04683377308707124
@@ -50,21 +50,21 @@
     "contest_level_rates": {
         "uncontested": {
             "success_rate": 0.644963144963145,
-            "usage_rate": 0.09233212341197822,
+            "occurrence_rate": 0.09233212341197822,
             "assisted_rate": 0.48525798525798525,
             "fouled_rate": 0,
             "blocked_rate": 0
         },
         "lightly_contested": {
             "success_rate": 0.5129233511586453,
-            "usage_rate": 0.26916969147005443,
+            "occurrence_rate": 0.26916969147005443,
             "assisted_rate": 0.35103244837758113,
             "fouled_rate": 0.07669616519174041,
             "blocked_rate": 0.010956595027391488
         },
         "heavily_contested": {
             "success_rate": 0.4426551453260016,
-            "usage_rate": 0.6384981851179673,
+            "occurrence_rate": 0.6384981851179673,
             "assisted_rate": 0.24125066619292948,
             "fouled_rate": 0.12311245336649494,
             "blocked_rate": 0.07017232190442352
@@ -73,35 +73,35 @@
     "shot_type_rates": {
         "heave": {
             "success_rate": 0,
-            "usage_rate": 0.001928312159709619,
+            "occurrence_rate": 0.001928312159709619,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0.11764705882352941
         },
         "jumper": {
             "success_rate": 0.3866231647634584,
-            "usage_rate": 0.49727767695099817,
+            "occurrence_rate": 0.49727767695099817,
             "assisted_rate": 0.28900547445255476,
             "fouled_rate": 0.02531934306569343,
             "blocked_rate": 0.009352189781021899
         },
         "post": {
             "success_rate": 0.5128205128205128,
-            "usage_rate": 0.05558076225045372,
+            "occurrence_rate": 0.05558076225045372,
             "assisted_rate": 0.2795918367346939,
             "fouled_rate": 0.06938775510204082,
             "blocked_rate": 0.026530612244897958
         },
         "floater": {
             "success_rate": 0.42768595041322316,
-            "usage_rate": 0.06147912885662432,
+            "occurrence_rate": 0.06147912885662432,
             "assisted_rate": 0.22140221402214022,
             "fouled_rate": 0.14944649446494465,
             "blocked_rate": 0.05350553505535055
         },
         "layup": {
             "success_rate": 0.6311418685121107,
-            "usage_rate": 0.38373411978221417,
+            "occurrence_rate": 0.38373411978221417,
             "assisted_rate": 0.3139225539462016,
             "fouled_rate": 0.19184156074490097,
             "blocked_rate": 0.09932013006207509
@@ -110,126 +110,126 @@
     "complex_shot_type_rates": {
         "heave": {
             "success_rate": 0,
-            "usage_rate": 0.001928312159709619,
+            "occurrence_rate": 0.001928312159709619,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0.11764705882352941
         },
         "catchAndShoot": {
             "success_rate": 0.42254495159059474,
-            "usage_rate": 0.16458711433756806,
+            "occurrence_rate": 0.16458711433756806,
             "assisted_rate": 0.41764300482425915,
             "fouled_rate": 0.005513439007580979,
             "blocked_rate": 0.0027567195037904893
         },
         "catchAndShootRelocating": {
             "success_rate": 0.36973684210526314,
-            "usage_rate": 0.08711433756805807,
+            "occurrence_rate": 0.08711433756805807,
             "assisted_rate": 0.3619791666666667,
             "fouled_rate": 0.015625,
             "blocked_rate": 0.005208333333333333
         },
         "catchAndShootOnMoveLeft": {
             "success_rate": 0.3793103448275862,
-            "usage_rate": 0.009981851179673321,
+            "occurrence_rate": 0.009981851179673321,
             "assisted_rate": 0.375,
             "fouled_rate": 0.022727272727272728,
             "blocked_rate": 0
         },
         "catchAndShootOnMoveRight": {
             "success_rate": 0.4074074074074074,
-            "usage_rate": 0.00646551724137931,
+            "occurrence_rate": 0.00646551724137931,
             "assisted_rate": 0.38596491228070173,
             "fouled_rate": 0.05263157894736842,
             "blocked_rate": 0.03508771929824561
         },
         "pullupJumper": {
             "success_rate": 0.35413153456998314,
-            "usage_rate": 0.0721415607985481,
+            "occurrence_rate": 0.0721415607985481,
             "assisted_rate": 0.13522012578616352,
             "fouled_rate": 0.07389937106918239,
             "blocked_rate": 0.01729559748427673
         },
         "stepback": {
             "success_rate": 0.3761232349165597,
-            "usage_rate": 0.08983666061705989,
+            "occurrence_rate": 0.08983666061705989,
             "assisted_rate": 0.14772727272727273,
             "fouled_rate": 0.020202020202020204,
             "blocked_rate": 0.01893939393939394
         },
         "shakeAndRaise": {
             "success_rate": 0.35714285714285715,
-            "usage_rate": 0.02824410163339383,
+            "occurrence_rate": 0.02824410163339383,
             "assisted_rate": 0.20883534136546184,
             "fouled_rate": 0.04417670682730924,
             "blocked_rate": 0.008032128514056224
         },
         "overScreen": {
             "success_rate": 0.3712574850299401,
-            "usage_rate": 0.038906533575317606,
+            "occurrence_rate": 0.038906533575317606,
             "assisted_rate": 0.21282798833819241,
             "fouled_rate": 0.03498542274052478,
             "blocked_rate": 0.008746355685131196
         },
         "drivingFloater": {
             "success_rate": 0.3790322580645161,
-            "usage_rate": 0.048321234119782216,
+            "occurrence_rate": 0.048321234119782216,
             "assisted_rate": 0.13615023474178403,
             "fouled_rate": 0.1807511737089202,
             "blocked_rate": 0.056338028169014086
         },
         "cutFloater": {
             "success_rate": 0.5892857142857143,
-            "usage_rate": 0.013157894736842105,
+            "occurrence_rate": 0.013157894736842105,
             "assisted_rate": 0.5344827586206896,
             "fouled_rate": 0.034482758620689655,
             "blocked_rate": 0.04310344827586207
         },
         "postLeft": {
             "success_rate": 0.5392857142857143,
-            "usage_rate": 0.03323502722323049,
+            "occurrence_rate": 0.03323502722323049,
             "assisted_rate": 0.3174061433447099,
             "fouled_rate": 0.07167235494880546,
             "blocked_rate": 0.020477815699658702
         },
         "postRight": {
             "success_rate": 0.4734042553191489,
-            "usage_rate": 0.02234573502722323,
+            "occurrence_rate": 0.02234573502722323,
             "assisted_rate": 0.2233502538071066,
             "fouled_rate": 0.06598984771573604,
             "blocked_rate": 0.03553299492385787
         },
         "drivingLayup": {
             "success_rate": 0.5722972972972973,
-            "usage_rate": 0.20077132486388385,
+            "occurrence_rate": 0.20077132486388385,
             "assisted_rate": 0.19717514124293786,
             "fouled_rate": 0.2062146892655367,
             "blocked_rate": 0.11638418079096045
         },
         "cutLayup": {
             "success_rate": 0.7403100775193798,
-            "usage_rate": 0.06862522686025409,
+            "occurrence_rate": 0.06862522686025409,
             "assisted_rate": 0.6181818181818182,
             "fouled_rate": 0.2049586776859504,
             "blocked_rate": 0.0859504132231405
         },
         "standstillLayup": {
             "success_rate": 0.6835236541598695,
-            "usage_rate": 0.08200998185117968,
+            "occurrence_rate": 0.08200998185117968,
             "assisted_rate": 0.3775933609958506,
             "fouled_rate": 0.21023513139695713,
             "blocked_rate": 0.1037344398340249
         },
         "lob": {
             "success_rate": 0.8904109589041096,
-            "usage_rate": 0.008280399274047187,
+            "occurrence_rate": 0.008280399274047187,
             "assisted_rate": 0.8904109589041096,
             "fouled_rate": 0.0410958904109589,
             "blocked_rate": 0.0136986301369863
         },
         "tip": {
             "success_rate": 0.5336538461538461,
-            "usage_rate": 0.024047186932849365,
+            "occurrence_rate": 0.024047186932849365,
             "assisted_rate": 0.0047169811320754715,
             "fouled_rate": 0.02358490566037736,
             "blocked_rate": 0.009433962264150943
@@ -238,189 +238,189 @@
     "dribbles_before_rates": {
         "0": {
             "success_rate": 0.49542722759341523,
-            "usage_rate": 0.45349364791288566,
+            "occurrence_rate": 0.45349364791288566,
             "assisted_rate": 0.41270635317658827,
             "fouled_rate": 0.060030015007503754,
             "blocked_rate": 0.026763381690845422
         },
         "1": {
             "success_rate": 0.48659384309831183,
-            "usage_rate": 0.12511343012704174,
+            "occurrence_rate": 0.12511343012704174,
             "assisted_rate": 0.38803263825929285,
             "fouled_rate": 0.11876699909338169,
             "blocked_rate": 0.05439709882139619
         },
         "2": {
             "success_rate": 0.5055762081784386,
-            "usage_rate": 0.10458257713248639,
+            "occurrence_rate": 0.10458257713248639,
             "assisted_rate": 0.35032537960954446,
             "fouled_rate": 0.15835140997830802,
             "blocked_rate": 0.055314533622559656
         },
         "3": {
             "success_rate": 0.47468354430379744,
-            "usage_rate": 0.07985480943738657,
+            "occurrence_rate": 0.07985480943738657,
             "assisted_rate": 0.2159090909090909,
             "fouled_rate": 0.12926136363636365,
             "blocked_rate": 0.07670454545454546
         },
         "4": {
             "success_rate": 0.4796380090497738,
-            "usage_rate": 0.05558076225045372,
+            "occurrence_rate": 0.05558076225045372,
             "assisted_rate": 0.061224489795918366,
             "fouled_rate": 0.12448979591836734,
             "blocked_rate": 0.0653061224489796
         },
         "5": {
             "success_rate": 0.40412979351032446,
-            "usage_rate": 0.04230943738656987,
+            "occurrence_rate": 0.04230943738656987,
             "assisted_rate": 0.00804289544235925,
             "fouled_rate": 0.11528150134048257,
             "blocked_rate": 0.06702412868632708
         },
         "6": {
             "success_rate": 0.48863636363636365,
-            "usage_rate": 0.03323502722323049,
+            "occurrence_rate": 0.03323502722323049,
             "assisted_rate": 0,
             "fouled_rate": 0.12627986348122866,
             "blocked_rate": 0.06484641638225255
         },
         "7": {
             "success_rate": 0.3953488372093023,
-            "usage_rate": 0.022572595281306715,
+            "occurrence_rate": 0.022572595281306715,
             "assisted_rate": 0,
             "fouled_rate": 0.18090452261306533,
             "blocked_rate": 0.05527638190954774
         },
         "8": {
             "success_rate": 0.40145985401459855,
-            "usage_rate": 0.01701451905626134,
+            "occurrence_rate": 0.01701451905626134,
             "assisted_rate": 0,
             "fouled_rate": 0.1,
             "blocked_rate": 0.1
         },
         "9": {
             "success_rate": 0.48514851485148514,
-            "usage_rate": 0.012704174228675136,
+            "occurrence_rate": 0.012704174228675136,
             "assisted_rate": 0,
             "fouled_rate": 0.15178571428571427,
             "blocked_rate": 0.09821428571428571
         },
         "10": {
             "success_rate": 0.31683168316831684,
-            "usage_rate": 0.012590744101633394,
+            "occurrence_rate": 0.012590744101633394,
             "assisted_rate": 0,
             "fouled_rate": 0.10810810810810811,
             "blocked_rate": 0.0990990990990991
         },
         "11": {
             "success_rate": 0.5070422535211268,
-            "usage_rate": 0.009074410163339383,
+            "occurrence_rate": 0.009074410163339383,
             "assisted_rate": 0,
             "fouled_rate": 0.1625,
             "blocked_rate": 0.0875
         },
         "12": {
             "success_rate": 0.5245901639344263,
-            "usage_rate": 0.00794010889292196,
+            "occurrence_rate": 0.00794010889292196,
             "assisted_rate": 0,
             "fouled_rate": 0.14285714285714285,
             "blocked_rate": 0.04285714285714286
         },
         "13": {
             "success_rate": 0.42105263157894735,
-            "usage_rate": 0.004877495462794919,
+            "occurrence_rate": 0.004877495462794919,
             "assisted_rate": 0,
             "fouled_rate": 0.11627906976744186,
             "blocked_rate": 0.06976744186046512
         },
         "14": {
             "success_rate": 0.5,
-            "usage_rate": 0.0052177858439201455,
+            "occurrence_rate": 0.0052177858439201455,
             "assisted_rate": 0,
             "fouled_rate": 0.13043478260869565,
             "blocked_rate": 0.06521739130434782
         },
         "15": {
             "success_rate": 0.6842105263157895,
-            "usage_rate": 0.0027223230490018148,
+            "occurrence_rate": 0.0027223230490018148,
             "assisted_rate": 0,
             "fouled_rate": 0.20833333333333334,
             "blocked_rate": 0
         },
         "16": {
             "success_rate": 0.36,
-            "usage_rate": 0.0029491833030852997,
+            "occurrence_rate": 0.0029491833030852997,
             "assisted_rate": 0,
             "fouled_rate": 0.038461538461538464,
             "blocked_rate": 0.07692307692307693
         },
         "17": {
             "success_rate": 0.42857142857142855,
-            "usage_rate": 0.0017014519056261343,
+            "occurrence_rate": 0.0017014519056261343,
             "assisted_rate": 0,
             "fouled_rate": 0.13333333333333333,
             "blocked_rate": 0.13333333333333333
         },
         "18": {
             "success_rate": 0.36363636363636365,
-            "usage_rate": 0.0012477313974591652,
+            "occurrence_rate": 0.0012477313974591652,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0.09090909090909091
         },
         "19": {
             "success_rate": 0.5,
-            "usage_rate": 0.0012477313974591652,
+            "occurrence_rate": 0.0012477313974591652,
             "assisted_rate": 0,
             "fouled_rate": 0.09090909090909091,
             "blocked_rate": 0.09090909090909091
         },
         "20": {
             "success_rate": 0.2727272727272727,
-            "usage_rate": 0.0012477313974591652,
+            "occurrence_rate": 0.0012477313974591652,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0.09090909090909091
         },
         "21": {
             "success_rate": 0.5,
-            "usage_rate": 0.0009074410163339383,
+            "occurrence_rate": 0.0009074410163339383,
             "assisted_rate": 0,
             "fouled_rate": 0.25,
             "blocked_rate": 0.125
         },
         "22": {
             "success_rate": 0.2,
-            "usage_rate": 0.0005671506352087115,
+            "occurrence_rate": 0.0005671506352087115,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0
         },
         "23": {
             "success_rate": 0.5,
-            "usage_rate": 0.0006805807622504537,
+            "occurrence_rate": 0.0006805807622504537,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0.16666666666666666
         },
         "24": {
             "success_rate": 1,
-            "usage_rate": 0.00022686025408348456,
+            "occurrence_rate": 0.00022686025408348456,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0
         },
         "25": {
             "success_rate": 0,
-            "usage_rate": 0.00011343012704174228,
+            "occurrence_rate": 0.00011343012704174228,
             "assisted_rate": 0,
             "fouled_rate": 1,
             "blocked_rate": 0
         },
         "26": {
             "success_rate": 0.5,
-            "usage_rate": 0.00022686025408348456,
+            "occurrence_rate": 0.00022686025408348456,
             "assisted_rate": 0,
             "fouled_rate": 0,
             "blocked_rate": 0

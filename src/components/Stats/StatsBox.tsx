@@ -7,7 +7,7 @@ import {
     SHOT_TYPE_LABELS,
     COMPLEX_SHOT_TYPE_LABELS,
 } from "../../utils/statlabels";
-import type { TeamType } from "../../types/teamType";
+import type { BasicShootingMetrics } from "../../types/shootingTypes";
 import type {
     ShotRates,
     ContestLevel,
@@ -31,7 +31,17 @@ export function StatsBox({ boxType }: StatsBoxProps) {
     } = useDashboardContext();
 
     if (boxType === "team") {
-        if (!teamStats) return null;
+        if (!teamStats)
+            return (
+                <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+                        Team Stats
+                    </h2>
+                    <p className="text-sm text-gray-400 dark:text-gray-500">
+                        No team stats found
+                    </p>
+                </div>
+            );
         return (
             <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
                 <div className="flex flex-row justify-between">
@@ -39,7 +49,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                         Team Stats
                     </h2>
                     <h3 className="flex flex-row items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <span>Shot Volume</span>{" "}
+                        <span>Shot Frequency</span>{" "}
                         <div
                             className="inset-0 h-2 w-24 rounded-full"
                             style={{
@@ -58,6 +68,17 @@ export function StatsBox({ boxType }: StatsBoxProps) {
     }
 
     if (boxType === "player") {
+        if (!selectedPlayerStats)
+            return (
+                <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+                        Player Stats
+                    </h2>
+                    <p className="text-sm text-gray-400 dark:text-gray-500">
+                        No player stats found
+                    </p>
+                </div>
+            );
         return (
             <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
                 <div className="flex flex-row justify-between">
@@ -65,7 +86,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                         {selectedPlayerStats.player_name}
                     </h2>
                     <h3 className="flex flex-row items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                        <span>Shot Volume</span>{" "}
+                        <span>Shot Frequency</span>{" "}
                         <div
                             className="inset-0 h-2 w-24 rounded-full"
                             style={{
@@ -117,7 +138,17 @@ export function StatsBox({ boxType }: StatsBoxProps) {
         );
     }
 
-    if (!zoneStats) return null;
+    if (!zoneStats)
+        return (
+            <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+                    {zoneTitle}
+                </h2>
+                <p className="text-sm text-gray-400 dark:text-gray-500">
+                    No stats found
+                </p>
+            </div>
+        );
 
     return (
         <div className="flex flex-1 flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
@@ -163,7 +194,7 @@ function StatSection({
 
 // Used to create primary type of Dashcard with hover effect showing extra stats
 function ShotRatesCards({ label, rates }: { label: string; rates: ShotRates }) {
-    if (rates.usage_rate === 0) return null;
+    if (rates.occurrence_rate === 0) return null;
     return (
         <DashCard
             title={label}
@@ -174,8 +205,8 @@ function ShotRatesCards({ label, rates }: { label: string; rates: ShotRates }) {
                     isPercentage: true,
                 },
                 {
-                    label: SHOT_RATES_LABELS.usage_rate,
-                    value: rates.usage_rate,
+                    label: SHOT_RATES_LABELS.occurrence_rate,
+                    value: rates.occurrence_rate,
                     isPercentage: true,
                 },
                 {
@@ -218,7 +249,7 @@ function GraphBars({ label, rates }: { label: string; rates: ShotRates }) {
 }
 // Dynamic section for player/team overview stats
 
-function OverviewSections({ stats }: { stats: TeamType }) {
+function OverviewSections({ stats }: { stats: BasicShootingMetrics }) {
     return (
         <div className="flex flex-row gap-2 items-start">
             <StatSection title="Overview" cols={2}>
@@ -342,7 +373,7 @@ function OverviewSections({ stats }: { stats: TeamType }) {
     );
 }
 
-function ComplexSections({ stats }: { stats: TeamType }) {
+function ComplexSections({ stats }: { stats: BasicShootingMetrics }) {
     const sortedShotTypeRates = Object.entries(
         stats.complex_shot_type_rates,
     ).sort((a, b) => b[1].success_rate - a[1].success_rate) as [

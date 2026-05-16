@@ -1,12 +1,6 @@
-import type {
-    ShotRowType,
-    ShotRates,
-    ContestLevel,
-    ShotType,
-    ComplexShotType,
-} from "../types/shotsTypes";
-import type { TeamType, CourtZone } from "../types/teamType";
-import type { PlayerType } from "../types/playerType";
+import type { ShotRowType, ShotRates } from "../types/shotsTypes";
+import type { BasicShootingMetrics, CourtZone } from "../types/shootingTypes";
+import type { PlayerShootingMetrics } from "../types/playerShootingType";
 import { safeDivide } from "./mathUtils";
 import {
     CELL_SIZE,
@@ -76,7 +70,7 @@ function calcSimpleRate(
 function calcShotRates(subset: ShotRowType[], total: ShotRowType[]): ShotRates {
     return {
         success_rate: calcSuccessRate(subset),
-        usage_rate: safeDivide(subset.length, total.length),
+        occurrence_rate: safeDivide(subset.length, total.length),
         assisted_rate: calcSimpleRate(subset, (s) => s.assisted),
         fouled_rate: calcSimpleRate(subset, (s) => s.fouled),
         blocked_rate: calcSimpleRate(subset, (s) => s.blocked),
@@ -104,7 +98,7 @@ function calcRecordRates<K extends string>(
 
 // Data aggregation for team
 
-export function aggregateShots(shots: ShotRowType[]): TeamType {
+export function aggregateShots(shots: ShotRowType[]): BasicShootingMetrics {
     // get all dribble values then add to a set to get unique values. Then sort
     const dribblesValues = shots.map((s) => s.dribbles_before);
     const dribblesKeys = [...new Set(dribblesValues)].sort((a, b) => a - b);
@@ -219,10 +213,10 @@ function groupByPlayerId(shots: ShotRowType[]): Map<string, ShotRowType[]> {
 // Data aggregation for players. returns a record of player id to player type
 export function buildPlayerStats(
     shots: ShotRowType[],
-): Record<string, PlayerType> {
+): Record<string, PlayerShootingMetrics> {
     const playerEntries = [...groupByPlayerId(shots).entries()];
     const playerStats = playerEntries.map(([id, playerShots]) => {
-        const player: PlayerType = {
+        const player: PlayerShootingMetrics = {
             player_id: id,
             player_name: playerShots[0].shooter_name,
             ...aggregateShots(playerShots),

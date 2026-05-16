@@ -5,8 +5,8 @@ import type {
     ShotType,
 } from "./shotsTypes";
 
-// consider extending the TeamType since there are a lot of similar fields
-export type PlayerType = {
+// consider extending the BasicShootingMetrics since there are a lot of similar fields
+export type PlayerShootingMetrics = {
     total_shots: number;
     player_id: string;
     player_name: string;

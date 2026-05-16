@@ -27,7 +27,7 @@ export type ComplexShotType =
 
 export type ShotRates = {
     success_rate: number;
-    usage_rate: number;
+    occurrence_rate: number;
     assisted_rate: number;
     fouled_rate: number;
     blocked_rate: number;

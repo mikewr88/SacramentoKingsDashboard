@@ -29,7 +29,7 @@ export const STAT_KEY_LABELS = {
 
 export const SHOT_RATES_LABELS = {
     success_rate: "Success Rate",
-    usage_rate: "Occurrence Rate",
+    occurrence_rate: "Occurrence Rate",
     assisted_rate: "Assisted",
     fouled_rate: "Fouled",
     blocked_rate: "Blocked",

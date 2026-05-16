@@ -1,4 +1,4 @@
-import type { CourtZone } from "../../types/teamType";
+import type { CourtZone } from "../../types/shootingTypes";
 import { formatNumber } from "../../utils/mathUtils";
 
 type CourtGridCellProps = {
