@@ -15,22 +15,26 @@ The app runs at `http://localhost:5173`. No backend required — all data is pro
 
 **Other scripts**
 
-| `npm run test` | Run Vitest once (`shotsAnalysis`, `mathUtils`) |
-| `npm run lint` | ESLint |
-| `npm run build` | Typecheck + production build |
-| `npm run preview` | Serve the production build locally |
+| Script            | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `npm run test`    | Run Vitest once (`shotsAnalysis`, `mathUtils`) |
+| `npm run lint`    | ESLint                                         |
+| `npm run build`   | Typecheck + production build                   |
+| `npm run preview` | Serve the production build locally             |
 
 ---
 
 ## Tech Stack
 
-| Framework | React 19 |
-| Language | TypeScript 6 |
-| Styling | Tailwind CSS v4 |
-| Build | Vite 8 |
-| CSV Parsing | PapaParse 5 |
-| State | React Context + useMemo |
-| Tests | Vitest |
+| Layer       | Choice                  |
+| ----------- | ----------------------- |
+| Framework   | React 19                |
+| Language    | TypeScript 6            |
+| Styling     | Tailwind CSS v4         |
+| Build       | Vite 8                  |
+| CSV Parsing | PapaParse 5             |
+| State       | React Context + useMemo |
+| Tests       | Vitest                  |
 
 ---
 
@@ -102,8 +106,8 @@ Key decisions in data transformation process:
 
 ### Court Coordinates For Deeper Shot Insight
 
-Coordinates were used to infer more meaningful shot insight than was immediately apparent from the provided raw data file. Shot Zone data for 2PT, 3PT, and Paint shote were added to the Dashboard data.
-The following the NBA court dimensions were used to achieve this:
+Coordinates were used to infer more meaningful shot insight than was immediately apparent from the provided raw data file. Shot Zone data for 2PT, 3PT, and Paint shots were added to the Dashboard data.
+The following NBA court dimensions were used to achieve this:
 
 - Origin at center court
 - Offensive half: x from −47 (left baseline) to 0 (half-court)
@@ -142,7 +146,7 @@ Minimal UI 'Ink' and animations to keep focus on viewing data comfortably.
 
 - **React.js vs NEXT.js** - NEXT would likely be a solid choice for a larger application with a backend. This is a frontend only single page site and wouldn't utilize NEXT's SSR and file-system based router. Vite and React were chosen for rapid development with sufficient features.
 - **React Context vs State Management Libraries** - Minimal state management was needed relative to more robust applications. Zustand or TanStack Query would be considered in a real world application to keep state management maintainable, scalable, and optimize workflows for APIs and backends.
-  Additional note: state could have been split into multiple contexts intead of it all 'living under one roof'
+  Additional note: state could have been split into multiple contexts instead of it all 'living under one roof'
 - **Tailwind/CSS Libraries** - Tailwind was used for rapid development and prototyping. I would prefer to use SCSS with modular styling in a larger application and collaborative team environment. Style guide and naming conventions required.
 - **Client-side Data Processing** - Parsing larger CSV datasets on load could eventually become expensive and not ideal. A pre-aggregation step to ingest frequently updating CSV game data would be a future consideration. Time to parse in this case has a negligible effect on page start up but could be a concern at scale.
 
@@ -155,7 +159,7 @@ Minimal UI 'Ink' and animations to keep focus on viewing data comfortably.
 - **Archetypes** - create algorithms to assign archetypal info to players for better on the floor combinations.
 - **Passing data** - incorporate the unused passing location data to show where the optimal passing situations arise .
 - **Multiple player select** - select and place multiple players on the shot chart to find optimal configurations.
-- **Play creater/tester** - in addition to multiple player selection, adding functionality to allow for coaches to draw up and optimize plays based on the position of players over the play's lifecycle. Could be used as a brainstorming and ideation tool.
+- **Play creator/tester** - in addition to multiple player selection, adding functionality to allow for coaches to draw up and optimize plays based on the position of players over the play's lifecycle. Could be used as a brainstorming and ideation tool.
 - **Importing data** - import files and dynamically aggregate the data for use in multiple views.
 
 ## If I Unlimited Time
