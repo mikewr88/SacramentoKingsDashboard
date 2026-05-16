@@ -8,7 +8,11 @@ export const HALF_COURT = 47;
 // Backboard is 4ft from baseline; hoop extends 1.25ft in front of backboard
 export const BASELINE_TO_BACKBOARD = 4;
 export const BACKBOARD_TO_HOOP = 1.25;
-export const BASKET_X = -(HALF_COURT - BASELINE_TO_BACKBOARD - BACKBOARD_TO_HOOP); // -41.75
+export const BASKET_X = -(
+    HALF_COURT -
+    BASELINE_TO_BACKBOARD -
+    BACKBOARD_TO_HOOP
+); // -41.75
 
 // NBA 3pt arc: 23.75ft from hoop center; corner straight segments at |y| >= 22ft
 export const THREE_POINT_ARC_DISTANCE = 23.75;
@@ -19,14 +23,12 @@ export const PAINT_HALF_WIDTH = 8;
 export const PAINT_LENGTH = BASELINE_TO_BACKBOARD + 15; // 19ft from baseline to free throw line
 export const LEFT_BASELINE = -HALF_COURT; // -47
 
-// ─── Timing thresholds ────────────────────────────────────────────────────────
-
-export const LATE_SHOT_CLOCK_THRESHOLD = 5;   // seconds remaining on shot clock
+export const LATE_SHOT_CLOCK_THRESHOLD = 5; // seconds remaining on shot clock
 export const LATE_GAME_CLOCK_THRESHOLD = 120; // seconds remaining in period
 
-// ─── Court grid (cell-based heat map) ────────────────────────────────────────
+// Court Grid Constants
 
-export const CELL_SIZE = 5; // feet per cell
+export const CELL_SIZE = 5; // ~5 feet per cell
 
 const X_MIN = -HALF_COURT;
 const X_MAX = 0;

@@ -7,7 +7,7 @@ type CourtGridCellProps = {
     mode: "fgpercentage" | "plusminus";
     baseline: number;
     isSelected: boolean;
-    onClick: () => void;
+    onGridCellClick: () => void;
 };
 
 const MAX_DELTA = 0.15;
@@ -18,7 +18,7 @@ export function CourtGridCell({
     mode,
     baseline,
     isSelected,
-    onClick,
+    onGridCellClick,
 }: CourtGridCellProps) {
     if (!zone || zone.total_shots === 0) {
         return <div className="h-full w-full rounded-sm opacity-0" />;
@@ -31,11 +31,12 @@ export function CourtGridCell({
     let bgColor: string;
 
     if (mode === "fgpercentage") {
-        const saturation = Math.round(successRate ** 2 * 100 * 2.5);
+        const saturation = Math.round(successRate ** 2 * 100 * 4);
         const lightness = 35 + (1 - intensity) * 25;
-        bgColor = `hsla(285, ${saturation}%, ${lightness}%, ${alpha})`;
+        bgColor = `hsla(271, ${saturation}%, ${lightness}%, ${alpha})`;
     } else {
         const delta = successRate - baseline;
+        //max delta accomodates for large differences. Assumes 15% difference as max.
         const normalized = Math.max(-1, Math.min(1, delta / MAX_DELTA));
         const abs = Math.abs(normalized);
         const hue = normalized >= 0 ? 0 : 220;
@@ -57,7 +58,7 @@ export function CourtGridCell({
                     : "hover:outline hover:outline-1 hover:outline-black/60"
             }`}
             style={{ backgroundColor: bgColor }}
-            onClick={onClick}
+            onClick={onGridCellClick}
         >
             {/* Tooltip */}
             <div className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 hidden -translate-x-1/2 rounded bg-gray-900 px-2 py-1 text-xs whitespace-nowrap text-white shadow group-hover:block">

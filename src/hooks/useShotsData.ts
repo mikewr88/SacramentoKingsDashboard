@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import shotsUrl from "../data/shots.csv?url";
 import type { ShotRowType } from "../types/shotsTypes";
 
-// Cached promise — parse runs once for the entire app session
+// Cached promise. Parse runs once for the entire app session
 let parsePromise: Promise<ShotRowType[]> | null = null;
 
 function getShotsData(): Promise<ShotRowType[]> {
@@ -21,6 +21,7 @@ function getShotsData(): Promise<ShotRowType[]> {
     return parsePromise;
 }
 
+// the actual hook to retrieve the Raw data in usable format
 export function useShotsData() {
     const [shotsData, setShotsData] = useState<ShotRowType[]>([]);
     const [shotsDataLoading, setShotsDataLoading] = useState(true);

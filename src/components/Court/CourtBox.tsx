@@ -1,22 +1,61 @@
 import { useMemo, useState } from "react";
-import { useDashboardContext } from "../context/dashboardContext";
-import { CourtGridCell } from "./UI/CourtGridCell";
-import type { CourtZone } from "../types/teamType";
-import courtImage from "../assets/basketballCourtBlank.JPG";
+import { useDashboardContext } from "../../context/dashboardContext";
+import { CourtGridCell } from "./CourtGridCell";
+import type { CourtZone, TeamType } from "../../types/teamType";
+import courtImage from "../../assets/basketballCourtBlank.JPG";
 import {
     COLS,
     ROWS,
     CELL_X_START,
     CELL_Y_START,
-} from "../utils/courtConstants";
-import { StatsBox } from "./StatsBox";
+} from "../../utils/constants/courtConstants";
 
-function buildGrid(courtMap: Record<string, CourtZone>) {
+type GridCell = {
+    zone: CourtZone | undefined;
+    baseline: number;
+    key: string;
+};
+
+type GridRow = GridCell[];
+
+// Helpers for the Grid Generation
+
+// Get Max shots used for relative intensity of the grid cells
+function getMaxShots(courtMap: Record<string, CourtZone>): {
+    maxShots: number;
+} {
     const maxShots = Object.values(courtMap).reduce(
         (max, z) => Math.max(max, z.total_shots),
         0,
     );
     return { maxShots };
+}
+
+// Generate the grid rows and cells
+function buildCourtGridRows(
+    activeMap: Record<string, CourtZone>,
+    teamCourtMap: Record<string, CourtZone> | null,
+    selectedPlayerId: string | null,
+    teamStats: TeamType | null,
+): GridRow[] {
+    const teamOverall = teamStats?.overall_shooting_average ?? 0;
+    const rows: GridRow[] = [];
+    for (let row = 0; row < ROWS; row++) {
+        const cellY = CELL_Y_START + row;
+        const cols: GridCell[] = [];
+        for (let col = 0; col < COLS; col++) {
+            const cellX = CELL_X_START + col;
+            const key = `${cellX}_${cellY}`;
+            const zone = activeMap[key];
+            //select the correct baseline value to compare against
+            const baseline = selectedPlayerId
+                ? (teamCourtMap?.[key]?.overall_shooting_average ?? teamOverall)
+                : teamOverall;
+            cols.push({ zone, baseline, key });
+        }
+        rows.push(cols);
+    }
+    return rows;
 }
 
 type ViewMode = "fgpercentage" | "plusminus";
@@ -39,66 +78,46 @@ export function CourtBox() {
         ? `${selectedPlayerStats?.player_name ?? "Player"} — Shot Chart`
         : "Team Shot Chart";
 
+    // maxShots is used to determine the color of the grid cells based on volume
+    // it is the highest total_shots value of any zone in the courtMap
     const { maxShots } = useMemo(
-        () => (activeMap ? buildGrid(activeMap) : { maxShots: 1 }),
+        () => (activeMap ? getMaxShots(activeMap) : { maxShots: 1 }),
         [activeMap],
     );
 
+    const rows = useMemo(() => {
+        if (!activeMap) return [] as GridRow[];
+        return buildCourtGridRows(
+            activeMap,
+            teamCourtMap,
+            selectedPlayerId,
+            teamStats,
+        );
+    }, [activeMap, teamCourtMap, selectedPlayerId, teamStats]);
+
     if (!activeMap) return null;
 
-    // +/- only makes sense when comparing a player against the team — fall back to FG% in team view
+    // +/- only makes sense when comparing a player against the team. Fall back to FG% in team view
     const effectiveMode: ViewMode = selectedPlayerId
         ? viewMode
         : "fgpercentage";
 
-    // Classic nested for loop to build grid: rows = Y axis, cols = X axis. left is negative x
-    const rows: Array<
-        Array<{ zone: CourtZone | undefined; baseline: number; key: string }>
-    > = [];
-    for (let row = 0; row < ROWS; row++) {
-        const cellY = CELL_Y_START + row;
-        const cols: Array<{
-            zone: CourtZone | undefined;
-            baseline: number;
-            key: string;
-        }> = [];
-        for (let col = 0; col < COLS; col++) {
-            const cellX = CELL_X_START + col;
-            const key = `${cellX}_${cellY}`;
-            const zone = activeMap[key];
-            // +/- baseline: player view compares to team's zone FG%, team view compares to overall team FG%
-            const baseline = selectedPlayerId
-                ? (teamCourtMap?.[key]?.overall_shooting_average ??
-                  teamStats?.overall_shooting_average ??
-                  0)
-                : (teamStats?.overall_shooting_average ?? 0);
-            cols.push({ zone, baseline, key });
-        }
-        rows.push(cols);
-    }
-
     return (
         <div className="flex flex-row gap-4">
-            <div className="relative flex shrink-0 flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+            <div className="relative flex shrink-0 flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
+                {/* court grid title and buttons */}
                 <div className="flex items-center gap-4 ">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">
                         {title}
                     </h2>
-                    {selectedCellKey && (
-                        <button
-                            onClick={() => setSelectedCellKey(null)}
-                            className="text-xs bg-gray-200 px-2 py-1 rounded-md text-gray-400 hover:text-gray-800 dark:bg-gray-900 dark:hover:text-gray-300"
-                        >
-                            Clear ✕
-                        </button>
-                    )}
+
                     <div className="view-mode-buttons flex overflow-hidden rounded border border-gray-200 text-xs dark:border-gray-700">
                         <button
                             onClick={() => setViewMode("fgpercentage")}
                             className={`px-3 py-1 transition-colors ${
                                 effectiveMode === "fgpercentage"
-                                    ? "bg-violet-600 text-white"
-                                    : "bg-white text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                                    ? "bg-[#5a2d81] text-white"
+                                    : "bg-white text-gray-600 cursor-pointer hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                             }`}
                         >
                             FG%
@@ -108,19 +127,27 @@ export function CourtBox() {
                                 onClick={() => setViewMode("plusminus")}
                                 className={`border-l border-gray-200 px-3 py-1 transition-colors dark:border-gray-700 ${
                                     effectiveMode === "plusminus"
-                                        ? "bg-violet-600 text-white"
-                                        : "bg-white text-gray-600 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                                        ? "bg-[#5a2d81] text-white"
+                                        : "bg-white text-gray-600 cursor-pointer hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                                 }`}
                             >
                                 +/-
                             </button>
                         )}
                     </div>
+                    {selectedCellKey && (
+                        <button
+                            onClick={() => setSelectedCellKey(null)}
+                            className="text-xs bg-gray-200 px-2 py-1 rounded-md text-gray-400 hover:text-gray-800 dark:bg-gray-900 dark:hover:text-gray-300"
+                        >
+                            Clear ✕
+                        </button>
+                    )}
                 </div>
 
                 {/* Court grid region */}
                 <div
-                    className="relative w-full rounded-lg"
+                    className="relative w-full shadow-lg shao rounded-lg"
                     style={{ width: `${COLS * 40}px` }}
                 >
                     <img
@@ -147,7 +174,7 @@ export function CourtBox() {
                                         mode={effectiveMode}
                                         baseline={baseline}
                                         isSelected={selectedCellKey === key}
-                                        onClick={() =>
+                                        onGridCellClick={() =>
                                             setSelectedCellKey(
                                                 selectedCellKey === key
                                                     ? null
@@ -170,7 +197,7 @@ export function CourtBox() {
                                 className="h-3 w-24 rounded"
                                 style={{
                                     background:
-                                        "linear-gradient(to right, hsl(285,20%,75%), hsl(285,60%,45%), hsl(285,100%,35%))",
+                                        "linear-gradient(to right, hsl(271,20%,75%), hsl(271,60%,45%), hsl(271,100%,35%))",
                                 }}
                             />
                             <span>High FG%</span>
@@ -198,10 +225,6 @@ export function CourtBox() {
                         <span>High</span>
                     </div>
                 </div>
-            </div>
-
-            <div className="flex ">
-                <StatsBox boxType="playerLocation" />
             </div>
         </div>
     );

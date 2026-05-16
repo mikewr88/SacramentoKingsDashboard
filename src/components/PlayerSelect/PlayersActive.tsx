@@ -1,5 +1,5 @@
-import { useDashboardContext } from "../context/dashboardContext";
-import { formatNumber } from "../utils/mathUtils";
+import { useDashboardContext } from "../../context/dashboardContext";
+import { formatNumber } from "../../utils/mathUtils";
 
 export function PlayersActive() {
     const { selectedPlayerStats, setSelectedPlayerId, setSelectedCellKey } =
@@ -12,7 +12,7 @@ export function PlayersActive() {
             </div>
         );
     }
-    // maybe add archetype later
+
     return (
         <div className="flex items-center justify-between rounded-lg border border-violet-200 bg-violet-50 px-3 py-2 dark:border-violet-800 dark:bg-violet-900/20 h-14">
             <div className="flex min-w-0 flex-col">
@@ -24,8 +24,7 @@ export function PlayersActive() {
                     {formatNumber(
                         selectedPlayerStats.overall_shooting_average,
                         true,
-                    )}{" "}
-                    FG%
+                    )}
                 </span>
             </div>
             <button

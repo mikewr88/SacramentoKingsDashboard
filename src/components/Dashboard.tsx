@@ -1,9 +1,9 @@
 import { DashboardProvider } from "../context/DashboardProvider";
 import { useDashboardContext } from "../context/dashboardContext";
 import { Error } from "./UI/Error";
-import { PlayerSelectBox } from "./PlayerSelectBox";
-import { StatsBox } from "./StatsBox";
-import { CourtBox } from "./CourtBox";
+import { PlayerSelectBox } from "./PlayerSelect/PlayerSelectBox";
+import { StatsBox } from "./Stats/StatsBox";
+import { CourtBox } from "./Court/CourtBox";
 
 function DashboardContent() {
     const { shotsDataLoading, shotsDataError, selectedPlayerId } =
@@ -12,7 +12,9 @@ function DashboardContent() {
     return (
         <div className="flex h-full gap-4 p-4">
             {shotsDataLoading && (
-                <p className="p-4 text-gray-500">Loading...</p>
+                <p className="p-4 text-gray-500 text-2xl text-center">
+                    Loading...
+                </p>
             )}
             {shotsDataError && <Error error={shotsDataError} />}
             {!shotsDataLoading && !shotsDataError && (
@@ -22,14 +24,18 @@ function DashboardContent() {
                         <PlayerSelectBox />
                     </aside>
 
-                    {/* Right: stats stacked above court */}
+                    {/* Right: Main stats above court and Detailed Stats */}
                     <div className="flex flex-1 flex-col gap-4 overflow-y-auto">
                         {selectedPlayerId ? (
                             <StatsBox boxType="player" />
                         ) : (
                             <StatsBox boxType="team" />
                         )}
-                        <CourtBox />
+
+                        <div className="flex flex-row gap-2 width-full">
+                            <CourtBox />
+                            <StatsBox boxType="zoneDetails" />
+                        </div>
                     </div>
                 </>
             )}

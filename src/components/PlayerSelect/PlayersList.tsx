@@ -1,5 +1,5 @@
-import { useDashboardContext } from "../context/dashboardContext";
-import { formatNumber } from "../utils/mathUtils";
+import { useDashboardContext } from "../../context/dashboardContext";
+import { formatNumber } from "../../utils/mathUtils";
 
 export function PlayersList() {
     const {
@@ -44,12 +44,11 @@ export function PlayersList() {
                                     {player.player_name}
                                 </span>
                                 <span className="ml-2 shrink-0 text-xs text-gray-400 dark:text-gray-500">
-                                    {formatNumber(player.total_shots)} at{" "}
+                                    {formatNumber(player.total_shots)} |{" "}
                                     {formatNumber(
                                         player.overall_shooting_average,
                                         true,
-                                    )}{" "}
-                                    FG%
+                                    )}
                                 </span>
                             </button>
                         </li>

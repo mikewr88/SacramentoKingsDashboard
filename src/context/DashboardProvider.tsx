@@ -16,9 +16,12 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
     const ready = shotsData.length > 0;
 
-    const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(null);
+    const [selectedPlayerId, setSelectedPlayerId] = useState<string | null>(
+        null,
+    );
     const [selectedCellKey, setSelectedCellKey] = useState<string | null>(null);
 
+    // Memoized data aggregation for team,players, and court maps
     const teamStats = useMemo(
         () => (ready ? aggregateShots(shotsData) : null),
         [shotsData, ready],
@@ -53,13 +56,23 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
         [selectedPlayerId, playerCourtMaps],
     );
 
+    // default to team stats when no player is selected, otherwise use selected player stats or zone stats
     const activeStats = useMemo(() => {
         if (selectedCellKey) {
-            const map = selectedPlayerId ? selectedPlayerCourtMap : teamCourtMap;
+            const map = selectedPlayerId
+                ? selectedPlayerCourtMap
+                : teamCourtMap;
             return map?.[selectedCellKey] ?? null;
         }
         return selectedPlayerId ? selectedPlayerStats : teamStats;
-    }, [selectedCellKey, selectedPlayerId, selectedPlayerCourtMap, teamCourtMap, selectedPlayerStats, teamStats]);
+    }, [
+        selectedCellKey,
+        selectedPlayerId,
+        selectedPlayerCourtMap,
+        teamCourtMap,
+        selectedPlayerStats,
+        teamStats,
+    ]);
 
     const value: DashboardContextValue = {
         shotsDataLoading,

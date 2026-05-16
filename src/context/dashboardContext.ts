@@ -15,7 +15,6 @@ export type DashboardContextValue = {
     selectedPlayerCourtMap: Record<string, CourtZone> | null;
     selectedCellKey: string | null;
     setSelectedCellKey: (key: string | null) => void;
-    // Derived: zone stats > player stats > team stats
     activeStats: TeamType | null;
 };
 
@@ -23,7 +22,7 @@ export const DashboardContext = createContext<DashboardContextValue | null>(
     null,
 );
 
-// exported in a separate file to allow faster hot reloading and avoid warning
+// Context was exported in a separate file from provider to allow faster hot reloading and avoid warning
 export function useDashboardContext() {
     const ctx = useContext(DashboardContext);
     if (!ctx) {

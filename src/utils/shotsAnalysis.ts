@@ -18,36 +18,13 @@ import {
     LEFT_BASELINE,
     LATE_SHOT_CLOCK_THRESHOLD,
     LATE_GAME_CLOCK_THRESHOLD,
-} from "./courtConstants";
+} from "./constants/courtConstants";
 
-const CONTEST_LEVELS: ContestLevel[] = [
-    "uncontested",
-    "lightly_contested",
-    "heavily_contested",
-];
-
-const SHOT_TYPES: ShotType[] = ["heave", "jumper", "post", "floater", "layup"];
-
-const COMPLEX_SHOT_TYPES: ComplexShotType[] = [
-    "heave",
-    "catchAndShoot",
-    "catchAndShootRelocating",
-    "catchAndShootOnMoveLeft",
-    "catchAndShootOnMoveRight",
-    "pullupJumper",
-    "stepback",
-    "shakeAndRaise",
-    "overScreen",
-    "drivingFloater",
-    "cutFloater",
-    "postLeft",
-    "postRight",
-    "drivingLayup",
-    "cutLayup",
-    "standstillLayup",
-    "lob",
-    "tip",
-];
+import {
+    CONTEST_LEVELS,
+    SHOT_TYPES,
+    COMPLEX_SHOT_TYPES,
+} from "./constants/shotConstants";
 
 // ─── Court geometry helpers ───────────────────────────────────────────────────
 
@@ -201,15 +178,15 @@ function groupByCell(
 ): Map<string, ShotRowType[]> {
     // group shots by cell key. cell key is of the form 'cellX_cellY'
     // cell has a value of an array of shots
-    const map = new Map<string, ShotRowType[]>();
+    const cellMap = new Map<string, ShotRowType[]>();
     for (const shot of shots) {
         const key = getCellKey(shot.x, shot.y, cellSize); //Ex: '1_2'
-        if (!map.has(key)) {
-            map.set(key, []);
+        if (!cellMap.has(key)) {
+            cellMap.set(key, []);
         }
-        map.get(key)!.push(shot);
+        cellMap.get(key)!.push(shot);
     }
-    return map;
+    return cellMap;
 }
 
 // Data aggregation for team court map. returns a record of cell key to court zone Stats
@@ -229,20 +206,21 @@ export function buildTeamCourtMap(
     return result;
 }
 
-function groupByPlayer(shots: ShotRowType[]): Map<string, ShotRowType[]> {
-    const map = new Map<string, ShotRowType[]>();
+// Helper function to group shots by player id
+function groupByPlayerId(shots: ShotRowType[]): Map<string, ShotRowType[]> {
+    const playerMap = new Map<string, ShotRowType[]>();
     for (const shot of shots) {
-        if (!map.has(shot.shooter_id)) map.set(shot.shooter_id, []);
-        map.get(shot.shooter_id)!.push(shot);
+        if (!playerMap.has(shot.shooter_id)) playerMap.set(shot.shooter_id, []);
+        playerMap.get(shot.shooter_id)!.push(shot);
     }
-    return map;
+    return playerMap;
 }
 
 // Data aggregation for players. returns a record of player id to player type
 export function buildPlayerStats(
     shots: ShotRowType[],
 ): Record<string, PlayerType> {
-    const playerEntries = [...groupByPlayer(shots).entries()];
+    const playerEntries = [...groupByPlayerId(shots).entries()];
     const playerStats = playerEntries.map(([id, playerShots]) => {
         const player: PlayerType = {
             player_id: id,
@@ -260,7 +238,7 @@ export function buildPlayerCourtMaps(
     cellSize = CELL_SIZE,
 ): Record<string, Record<string, CourtZone>> {
     // playerEntries is an array of [player id, shots[]] pairs ex: [['123', [shot1, shot2]], ['456', [shot3]]]
-    const playerEntries = [...groupByPlayer(shots).entries()];
+    const playerEntries = [...groupByPlayerId(shots).entries()];
     const playerCourtMaps = playerEntries.map(([id, playerShots]) => {
         const courtMap = buildTeamCourtMap(playerShots, cellSize);
         return [id, courtMap] as const; // as const ensures [string, Record<string, CourtZone>]
