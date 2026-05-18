@@ -10,7 +10,7 @@ type CourtGridCellProps = {
     onGridCellClick: () => void;
 };
 
-const MAX_DELTA = 0.15;
+const MAX_DELTA = 0.2;
 
 export function CourtGridCell({
     zone,
@@ -27,13 +27,34 @@ export function CourtGridCell({
     const intensity = zone.total_shots / maxShots;
     const successRate = zone.overall_shooting_average;
 
-    const alpha = 0.3 + intensity * 0.7;
     let bgColor: string;
-
     if (mode === "fgpercentage") {
-        const saturation = Math.round(successRate ** 2 * 100 * 4);
-        const lightness = 35 + (1 - intensity) * 25;
-        bgColor = `hsla(271, ${saturation}%, ${lightness}%, ${alpha})`;
+        //account for general distance of shot and reflect that on resulting hue
+        // 3 zones. close, mid, far
+        let shotRangeModifier = 0;
+        if (Math.abs(zone.cell_x) >= 8 && Math.abs(zone.cell_y + 0.5) <= 1.5) {
+            shotRangeModifier = 1;
+        } else if (
+            Math.abs(zone.cell_x) >= 6 &&
+            Math.abs(zone.cell_y + 0.5) <= 2.5
+        ) {
+            shotRangeModifier = 1.15;
+        } else if (
+            Math.abs(zone.cell_x) >= 0 &&
+            Math.abs(zone.cell_y + 0.5) <= 4.5
+        ) {
+            shotRangeModifier = 1.3;
+        }
+
+        const modifiedSuccessRate = successRate * shotRangeModifier;
+        const hue = Math.min(
+            Math.round(modifiedSuccessRate ** 2 * 120 * 2.5),
+            120,
+        );
+        //using lightness to show volume and further emphasize high value zones
+        const lightness = 40 + (1 - intensity * 2) * 20;
+
+        bgColor = `hsla(${hue}, ${60}%, ${lightness}%, .8)`;
     } else {
         const delta = successRate - baseline;
         //max delta accomodates for large differences. Assumes 15% difference as max.
@@ -42,7 +63,7 @@ export function CourtGridCell({
         const hue = normalized >= 0 ? 0 : 220;
         const saturation = Math.round(abs * 80);
         const lightness = Math.round(80 - abs * 45);
-        bgColor = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
+        bgColor = `hsla(${hue}, ${saturation}%, ${lightness}%, .8)`;
     }
 
     const deltaLabel =

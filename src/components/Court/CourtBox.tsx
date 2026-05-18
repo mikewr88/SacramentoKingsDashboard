@@ -43,6 +43,7 @@ function buildCourtGridRows(
 ): GridRow[] {
     const teamOverall = teamStats?.overall_shooting_average ?? 0;
     const rows: GridRow[] = [];
+    console.log(activeMap);
     for (let row = 0; row < ROWS; row++) {
         const cellY = CELL_Y_START + row;
         const cols: GridCell[] = [];
@@ -79,7 +80,7 @@ export function CourtBox() {
     const activeMap = selectedPlayerId ? selectedPlayerCourtMap : teamCourtMap;
     const title = selectedPlayerId
         ? `${selectedPlayerStats?.player_name ?? "Player"} — Shot Chart`
-        : "Team Shot Chart";
+        : "Team — Shot Chart";
 
     // maxShots is used to determine the color of the grid cells based on volume
     // it is the highest total_shots value of any zone in the courtMap
@@ -161,6 +162,9 @@ export function CourtBox() {
                         className="relative"
                         style={{ paddingTop: `${(ROWS / COLS) * 100}%` }}
                     >
+                        <span className="absolute top-1 right-3 text-xs text-gray-400 pointer-events-none">
+                            Select a Zone
+                        </span>
                         <div
                             className="absolute inset-0 grid gap-px"
                             style={{
@@ -200,7 +204,7 @@ export function CourtBox() {
                                 className="h-3 w-24 rounded"
                                 style={{
                                     background:
-                                        "linear-gradient(to right, hsl(271,20%,75%), hsl(271,60%,45%), hsl(271,100%,35%))",
+                                        "linear-gradient(to right, hsl(0,60%,45%), hsl(60,60%,45%), hsl(120,60%,45%))",
                                 }}
                             />
                             <span>High FG%</span>

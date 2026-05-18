@@ -17,9 +17,12 @@ export function PlayersList() {
 
     return (
         <div className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-            <div className="border-b border-gray-200 px-3 py-2 dark:border-gray-700">
-                <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+            <div className="flex justify-between items-center border-b border-gray-200 px-3 py-2 dark:border-gray-700">
+                <h3 className="text-md font-semibold text-gray-500 dark:text-gray-400">
                     Players
+                </h3>
+                <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-400">
+                    total | FG%
                 </h3>
             </div>
             <ul className="flex flex-col overflow-y-auto">

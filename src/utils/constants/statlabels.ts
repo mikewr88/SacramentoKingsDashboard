@@ -1,6 +1,6 @@
 export const STAT_KEY_LABELS = {
     total_shots: "Total Shots",
-    overall_shooting_average: "Shooting Average",
+    overall_shooting_average: "FG%",
     overall_assist_rate: "Assist Rate",
     overall_fouled_rate: "Fouled Rate",
     overall_contested_rate: "Contested Rate",

@@ -9,9 +9,10 @@ export type StatValue = {
 type DashCardProps = {
     title: string;
     values: StatValue[];
+    large?: boolean;
 };
 
-export function DashCard({ title, values }: DashCardProps) {
+export function DashCard({ title, values, large }: DashCardProps) {
     const [primary, ...secondary] = values;
 
     // secondary[0] drives the frequency bar (occurrence/occurrence rate)
@@ -26,8 +27,8 @@ export function DashCard({ title, values }: DashCardProps) {
         <div className="group relative flex w-[140px] flex-col items-center gap-1 rounded-lg border border-gray-200 bg-white p-2 dark:border-gray-700 dark:bg-gray-900 hover:border-violet-500 cursor-default ">
             {/* Expandable stats shown on hover*/}
             {expandableStats.length > 0 && (
-                <div className="absolute pointer-events-none bottom-full left-0 right-0 z-10 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
-                    <div className="flex flex-col gap-1 w-7/8 mx-auto rounded-t-lg border border-b-0 border-gray-200 bg-white dark:bg-gray-900 px-3 pb-2 pt-2 dark:border-gray-700 dark:bg-gray-800">
+                <div className="absolute pointer-events-none top-full left-0 right-0 z-10 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
+                    <div className="flex flex-col gap-[0.5] w-7/8 mx-auto rounded-b-lg border border-t-0 border-violet-500 bg-white dark:bg-gray-900 px-3 pb-2 pt-2 dark:border-gray-700 dark:bg-gray-800">
                         {expandableStats.map((stat) => (
                             <div
                                 key={stat.label}
@@ -46,10 +47,14 @@ export function DashCard({ title, values }: DashCardProps) {
                 </div>
             )}
 
-            <span className="text-center text-xs leading-tight text-gray-500 dark:text-gray-400">
+            <span
+                className={`text-center leading-tight text-gray-500 dark:text-gray-400 ${large ? "text-lg" : "text-xs"}`}
+            >
                 {title}
             </span>
-            <span className="text-md font-bold text-gray-900 dark:text-white">
+            <span
+                className={`font-bold text-gray-900 dark:text-white ${large ? "text-lg" : "text-md"}`}
+            >
                 {formatNumber(primary.value, primary.isPercentage)}
             </span>
 

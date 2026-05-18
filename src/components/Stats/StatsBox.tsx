@@ -6,7 +6,7 @@ import {
     CONTEST_LEVEL_LABELS,
     SHOT_TYPE_LABELS,
     COMPLEX_SHOT_TYPE_LABELS,
-} from "../../utils/statlabels";
+} from "../../utils/constants/statlabels";
 import type { BasicShootingMetrics } from "../../types/shootingTypes";
 import type {
     ShotRates,
@@ -35,7 +35,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
             return (
                 <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-                        Team Stats
+                        Team Shooting
                     </h2>
                     <p className="text-sm text-gray-400 dark:text-gray-500">
                         No team stats found
@@ -43,10 +43,13 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                 </div>
             );
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex flex-row justify-between">
+            <div
+                key="team"
+                className=" flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800"
+            >
+                <div className="fadeIn flex flex-row justify-start gap-6">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-                        Team Stats
+                        Team Shooting
                     </h2>
                     <h3 className="flex flex-row items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         <span>Shot Frequency</span>{" "}
@@ -60,7 +63,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                     </h3>
                 </div>
 
-                <div className="flex flex-row flex-wrap gap-2 items-start">
+                <div className="fadeIn flex flex-row flex-wrap gap-2 items-start">
                     <OverviewSections stats={teamStats} />
                 </div>
             </div>
@@ -72,7 +75,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
             return (
                 <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">
-                        Player Stats
+                        Player Shooting
                     </h2>
                     <p className="text-sm text-gray-400 dark:text-gray-500">
                         No player stats found
@@ -80,8 +83,11 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                 </div>
             );
         return (
-            <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
-                <div className="flex flex-row justify-between">
+            <div
+                key={selectedPlayerStats.player_id}
+                className=" flex flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800"
+            >
+                <div className="fadeIn flex flex-row justify-start gap-6">
                     <h2 className="text-lg font-bold text-gray-900 dark:text-white">
                         {selectedPlayerStats.player_name}
                     </h2>
@@ -96,7 +102,7 @@ export function StatsBox({ boxType }: StatsBoxProps) {
                         />
                     </h3>
                 </div>
-                <div className="flex flex-row flex-wrap gap-2 items-start">
+                <div className="fadeIn flex flex-row flex-wrap gap-2 items-start">
                     <OverviewSections stats={selectedPlayerStats} />
                 </div>
             </div>
@@ -113,11 +119,11 @@ export function StatsBox({ boxType }: StatsBoxProps) {
 
     const zoneTitle = selectedCellKey
         ? selectedPlayerId
-            ? `${selectedPlayerStats?.player_name ?? "Player"} — Zone Stats`
-            : "Team — Zone Stats"
+            ? `${selectedPlayerStats?.player_name ?? "Player"} — Zone Shooting`
+            : "Team — Zone Shooting"
         : selectedPlayerId
-          ? `${selectedPlayerStats?.player_name ?? "Player"} — Detailed Stats`
-          : "Team — Detailed Stats";
+          ? `${selectedPlayerStats?.player_name ?? "Player"} — Detailed Shooting`
+          : "Team — Detailed Shooting";
 
     // Show an empty zone when a cell is selected but it has no data for this player
     const isEmptyZone =
@@ -151,11 +157,14 @@ export function StatsBox({ boxType }: StatsBoxProps) {
         );
 
     return (
-        <div className="flex flex-1 flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+        <div
+            key={`${selectedCellKey ?? "all"}-${selectedPlayerId ?? "team"}`}
+            className=" flex flex-1 flex-col gap-2 rounded-lg border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800"
+        >
+            <h2 className="fadeIn text-lg font-bold text-gray-900 dark:text-white">
                 {zoneTitle}
             </h2>
-            <div className="flex flex-col flex-wrap gap-2 items-start">
+            <div className="fadeIn flex flex-col flex-wrap gap-2 items-start">
                 <ComplexSections stats={zoneStats} />
             </div>
         </div>
@@ -168,15 +177,17 @@ function StatSection({
     children,
     cols,
 }: {
-    title: string;
+    title: string | null;
     children: React.ReactNode;
     cols?: number;
 }) {
     return (
         <div className="flex flex-col  gap-2 rounded-lg border border-gray-200 p-2 dark:border-gray-700 dark:bg-gray-800">
-            <h3 className="border-l-2 border-violet-500 pl-1 text-sm font-semibold text-gray-500 dark:text-gray-400">
-                {title}
-            </h3>
+            {title && (
+                <h3 className="border-l-2 border-violet-500 pl-1 text-sm font-semibold text-gray-500 dark:text-gray-400">
+                    {title}
+                </h3>
+            )}
 
             <div
                 className={cols ? "grid gap-2" : "flex flex-wrap gap-2"}
@@ -232,11 +243,11 @@ function ShotRatesCards({ label, rates }: { label: string; rates: ShotRates }) {
 //Graph Bars for dribbles before shot
 function GraphBars({ label, rates }: { label: string; rates: ShotRates }) {
     return (
-        <div className="relative flex flex-col items-center gap-1  h-[100px]  w-[10px]">
-            <div className="absolute bottom-0 flex flex-col  items-center gap-1 h-full w-[10px]">
-                <div className="flex flex-col justify-end items-center gap-1 h-full w-[10px] bg-gray-200 dark:bg-gray-700">
+        <div className="relative flex flex-col items-center gap-1  h-[100px]  w-[20px]">
+            <div className="absolute bottom-0 flex flex-col  items-center gap-1 h-full w-full">
+                <div className="flex flex-col justify-end items-center gap-1 h-full w-full bg-gray-200 dark:bg-gray-700">
                     <div
-                        className="bg-[#5a2d81] dark:bg-[#8b5cf6] w-[10px]"
+                        className="bg-[#5a2d81] dark:bg-[#8b5cf6] w-full"
                         style={{ height: `${rates.success_rate * 100}%` }}
                     ></div>
                 </div>
@@ -252,7 +263,7 @@ function GraphBars({ label, rates }: { label: string; rates: ShotRates }) {
 function OverviewSections({ stats }: { stats: BasicShootingMetrics }) {
     return (
         <div className="flex flex-row gap-2 items-start">
-            <StatSection title="Overview" cols={2}>
+            <StatSection title={null} cols={2}>
                 <DashCard
                     title={STAT_KEY_LABELS.total_shots}
                     values={[
@@ -261,6 +272,7 @@ function OverviewSections({ stats }: { stats: BasicShootingMetrics }) {
                             value: stats.total_shots,
                         },
                     ]}
+                    large={true}
                 />
                 <DashCard
                     title={STAT_KEY_LABELS.overall_shooting_average}
@@ -271,6 +283,7 @@ function OverviewSections({ stats }: { stats: BasicShootingMetrics }) {
                             isPercentage: true,
                         },
                     ]}
+                    large={true}
                 />
                 <DashCard
                     title={STAT_KEY_LABELS.overall_assist_rate}
